@@ -52,19 +52,18 @@ function renderBoard(scene) {
 
 function renderLayer(scene, state, elevation) {
     const colors = [
+        new THREE.MeshBasicMaterial({color: 0xffffff, transparent: true, opacity: 0.1}),
         new THREE.MeshBasicMaterial({color: 0x0000dd, transparent: true, opacity: 0.6}),
         new THREE.MeshBasicMaterial({color: 0xdd0000, transparent: true, opacity: 0.6})
     ];
-
-    console.log("renderLayer", elevation);
 
     const geometry = new THREE.BoxGeometry(size, size, size);
     for (let j=0; j<8; j++) {
         for (let i=0; i<8; i++) {
             const s = state[i][j];
-            if (s == 0) continue;
+            //if (s == 0) continue;
 
-            const box = new THREE.Mesh(geometry, colors[s-1]);
+            const box = new THREE.Mesh(geometry, colors[s]);
             box.position.x = i * size;
             box.position.y = j * size;
             box.position.z = elevation * size;
