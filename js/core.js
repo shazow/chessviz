@@ -20,7 +20,16 @@ function init() {
         renderLayer(scene, moves[i], Number(i)+1);
     }
 
-    const renderer = new THREE.WebGLRenderer();
+    //const renderer = new THREE.WebGLRenderer();
+
+    // See: view-source:https://threejs.org/examples/raytracing_sandbox.html
+    const renderer = new THREE.RaytracingRenderer( {
+        workers: 4,
+        workerPath: 'js/RaytracingWorker.js',
+        randomize: true,
+        blockSize: 64
+    });
+    renderer.setClearColor( 0xf0f0f0 );
     renderer.setSize(window.innerWidth, window.innerHeight);
 
     document.body.appendChild(renderer.domElement);
