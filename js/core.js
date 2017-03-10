@@ -10,6 +10,10 @@ function init() {
     camera.position.y = -50;
     camera.lookAt(new THREE.Vector3(35, 60, 0));
 
+    var light = new THREE.DirectionalLight( 0xffffff );
+    light.position = camera.position;
+    scene.add(light);
+
     renderBoard(scene);
 
     const s = [
@@ -57,12 +61,8 @@ function renderBoard(scene) {
 
 function renderLayer(scene, state, elevation) {
     const colors = [
-        new THREE.MeshBasicMaterial({
-            color: 0x0000dd,
-        }),
-        new THREE.MeshBasicMaterial({
-            color: 0xdd0000,
-        })
+        new THREE.MeshBasicMaterial({color: 0x0000dd, transparent: true, opacity: 0.6}),
+        new THREE.MeshBasicMaterial({color: 0xdd0000, transparent: true, opacity: 0.6})
     ];
 
     const geometry = new THREE.BoxGeometry(size, size, size);
