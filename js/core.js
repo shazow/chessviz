@@ -4,6 +4,7 @@ function init() {
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
     camera.position.z = 100;
     camera.position.x = 35;
+    camera.lookAt(new THREE.Vector3(35, 60, 0));
 
     renderBoard(scene);
 
