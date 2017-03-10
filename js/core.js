@@ -5,7 +5,7 @@ function init() {
     const scene = new THREE.Scene();
 
     const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 1, 10000);
-    camera.position.z = 60;
+    camera.position.z = 100;
     camera.position.x = 35;
     camera.position.y = -50;
     camera.lookAt(new THREE.Vector3(35, 60, 0));
@@ -16,18 +16,9 @@ function init() {
 
     renderBoard(scene);
 
-    const s = [
-        [1, 1, 1, 1, 1, 1, 1, 1],
-        [1, 1, 1, 1, 1, 1, 1, 1],
-        [null, null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null, null],
-        [null, null, null, null, null, null, null, null],
-        [0, 0, 0, 0, 0, 0, 0, 0],
-        [0, 0, 0, 0, 0, 0, 0, 0]
-    ];
-
-    renderLayer(scene, s, 1);
+    for(let i in moves) {
+        renderLayer(scene, moves[i], Number(i)+1);
+    }
 
     const renderer = new THREE.WebGLRenderer();
     renderer.setSize(window.innerWidth, window.innerHeight);
@@ -65,13 +56,15 @@ function renderLayer(scene, state, elevation) {
         new THREE.MeshBasicMaterial({color: 0xdd0000, transparent: true, opacity: 0.6})
     ];
 
+    console.log("renderLayer", elevation);
+
     const geometry = new THREE.BoxGeometry(size, size, size);
     for (let j=0; j<8; j++) {
         for (let i=0; i<8; i++) {
             const s = state[i][j];
-            if (s == null) continue;
+            if (s == 0) continue;
 
-            const box = new THREE.Mesh(geometry, colors[s]);
+            const box = new THREE.Mesh(geometry, colors[s-1]);
             box.position.x = i * size;
             box.position.y = j * size;
             box.position.z = elevation * size;
